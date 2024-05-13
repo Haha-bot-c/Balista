@@ -14,6 +14,11 @@ public class CameraMover : MonoBehaviour
     [SerializeField] private float _zoomSpeed = 5f;
     [SerializeField] private float _rotationSpeed = 2f;
 
+    private KeyCode _forwardKey = KeyCode.W;
+    private KeyCode _backwardKey = KeyCode.S;
+    private KeyCode _leftKey = KeyCode.A;
+    private KeyCode _rightKey = KeyCode.D;
+
     private void Update()
     {
         Vector3 currentPosition = transform.position;
@@ -29,29 +34,31 @@ public class CameraMover : MonoBehaviour
     private void HandleMovement(ref Vector3 position)
     {
         Vector3 forwardDirection = transform.forward;
+        Vector3 rightDirection = transform.right;
 
         forwardDirection.y = 0f;
+        rightDirection.y = 0f;
         forwardDirection.Normalize();
+        rightDirection.Normalize();
 
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(_forwardKey))
         {
             position += forwardDirection * _moveSpeed * Time.deltaTime;
         }
-        else if (Input.GetKey(KeyCode.S))
+        else if (Input.GetKey(_backwardKey))
         {
             position -= forwardDirection * _moveSpeed * Time.deltaTime;
         }
 
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(_leftKey))
         {
-            position -= transform.right * _moveSpeed * Time.deltaTime;
+            position -= rightDirection * _moveSpeed * Time.deltaTime;
         }
-        else if (Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(_rightKey))
         {
-            position += transform.right * _moveSpeed * Time.deltaTime;
+            position += rightDirection * _moveSpeed * Time.deltaTime;
         }
     }
-
 
     private void ClampCameraPosition(ref Vector3 position)
     {

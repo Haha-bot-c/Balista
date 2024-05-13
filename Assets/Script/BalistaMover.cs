@@ -7,7 +7,8 @@ public class BalistaMover : MonoBehaviour
     private const float MinVerticalRotation = 0f;
     private const float MaxVerticalRotation = 15f;
     private const int RotateMouseButton = 2;
-    private const float _rotationSpeed = 2f;
+
+    [SerializeField] private float _rotationSpeed = 2f;
 
     private void Update()
     {
